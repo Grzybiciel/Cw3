@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Cw3.DAL;
@@ -20,23 +21,81 @@ namespace Cw3.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetStudents(string orderBy)
+        public IActionResult GetStudents()
         {
-            return Ok(_dbService.GetStudents());
+            List<Object> listQ = new List<Object>();
+            using (var client = new SqlConnection("Data Source=db-mssql;Initial Catalog=s18445; Integrated Security=True"))
+            using (var com = new SqlCommand())
+                
+            {
+                com.Connection = client;
+                com.CommandText = "select FirstName, LastName, BirthDate, Name, Semester " +
+                    "from Student, Studies, Enrollment " +
+                    "where Student.IdEnrollment = Enrollment.IdEnrollment and Studies.IdStudy = Enrollment.IdStudy";
+
+
+                client.Open();
+                var dr = com.ExecuteReader();
+                while(dr.Read())
+                {
+                    var st = new
+                    {
+                        FirstName = dr["FirstName"].ToString(),
+                        LastName = dr["LastName"].ToString(),
+                        BirthDate = DateTime.Parse(dr["BirthDate"].ToString()),
+                        Name = dr["Name"].ToString(),
+                        Semester = dr["Semester"].ToString(),
+                    };
+                    listQ.Add(st);
+                }
+
+            }
+
+            return Ok(listQ);
+                    
         }
 
         [HttpGet("{id}")]
         public IActionResult GetStudents(int id)
         {
-            if(id==1)
-            {
-                return Ok("Kowalski");
-            }else if (id==2)
-            {
-                return Ok("Malewski");
-            }
+            List<Object> listQ = new List<Object>();
+            using (var client = new SqlConnection("Data Source=db-mssql;Initial Catalog=s18445; Integrated Security=True"))
+            using (var com = new SqlCommand())
 
-            return NotFound("Nie znaleziono studenta");
+            {
+                com.Connection = client;
+                com.CommandText = "SELECT FirstName, LastName, BirthDate, Name, Semester " +
+                    "FROM Student, Studies, Enrollment " +
+                    "WHERE Student.IdEnrollment = Enrollment.IdEnrollment " +
+                    "AND Studies.IdStudy = Enrollment.IdStudy " +
+                    "AND IndexNumber = @id";
+
+                com.Parameters.AddWithValue("id", id);
+
+                client.Open();
+                var dr = com.ExecuteReader();
+                while (dr.Read())
+                {
+                    var st = new
+                    {
+                        FirstName = dr["FirstName"].ToString(),
+                        LastName = dr["LastName"].ToString(),
+                        BirthDate = DateTime.Parse(dr["BirthDate"].ToString()),
+                        Name = dr["Name"].ToString(),
+                        Semester = dr["Semester"].ToString(),
+                    };
+                    listQ.Add(st);
+                }
+
+            }
+            if (listQ.Count != 0)
+            {
+                return Ok(listQ);
+            }
+            else
+            {
+                return NotFound("Nie znaleziono studenta");
+            }
         }
 
         [HttpPost]
