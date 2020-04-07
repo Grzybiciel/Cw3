@@ -52,7 +52,7 @@ namespace Cw3.Services
                     com.Parameters.AddWithValue("nNAME", request.Studies);
                     dr.Close();
                     dr = com.ExecuteReader();
-
+                      
                     if (!dr.Read())
                     {
                         com.CommandText = "INSERT INTO ENROLLMENT VALUES( (SELECT MAX(IDENROLLMENT)+1 FROM ENROLLMENT),1,@idStudies,@dateNow)";
