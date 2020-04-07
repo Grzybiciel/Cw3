@@ -1,0 +1,161 @@
+GET
+/
+
+
+GET
+/favicon.ico
+
+
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+
+GET
+/
+
+
+GET
+/favicon.ico
+
+
+GET
+/
+
+
+GET
+/favicon.ico
+
+
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+
+GET
+/
+
+
+GET
+/favicon.ico
+
+
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+
+GET
+/api/students/18445
+{
+	"IdStudent": 1
+}
+
+GET
+/api/students/18445
+{
+	"IdStudent": 1
+}
+
+GET
+/api
+{
+	"IdStudent": 1
+}
+
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+?18445
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+?Index
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+?index=18445
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+?index=18445
+GET
+/
+
+
+GET
+/favicon.ico
+
+
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+?index=18445
+GET
+/
+
+
+GET
+/favicon.ico
+
+
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+?index=18445
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+?index=18445
+GET
+/
+
+
+===================================
+GET
+/favicon.ico
+
+
+===================================
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+?index=18445
+===================================

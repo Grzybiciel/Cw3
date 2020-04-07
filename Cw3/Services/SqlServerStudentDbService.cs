@@ -22,7 +22,7 @@ namespace Cw3.Services
             //Console.WriteLine(DateTime.Now.Date);
             int sem = -1, idS = -1; DateTime sDate = DateTime.Now; int idEnrollment = -1;
 
-            using (var con = new SqlConnection("Data Source=db-mssql;Initial Catalog=s18974; Integrated Security=True"))
+            using (var con = new SqlConnection("Data Source=db-mssql;Initial Catalog=s18445; Integrated Security=True"))
             using (var com = new SqlCommand())
             {
                 com.Connection = con;
@@ -130,7 +130,7 @@ namespace Cw3.Services
         public EnrollStudentResponse PromoteStudent(PromotionRequest request)
         {
             var response = new EnrollStudentResponse();
-            using (var con = new SqlConnection("Data Source=db-mssql;Initial Catalog=s18974; Integrated Security=True"))
+            using (var con = new SqlConnection("Data Source=db-mssql;Initial Catalog=s18445; Integrated Security=True"))
             using (var com = new SqlCommand())
             {
                 com.Connection = con;
