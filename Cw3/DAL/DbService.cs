@@ -42,6 +42,11 @@ namespace Cw3.DAL
                 return false;
                 
         }
+
+        public IEnumerable<Student> GetStudents()
+        {
+            throw new NotImplementedException();
+        }
     }
 
         //public IEnumerable<Student> GetStudents()

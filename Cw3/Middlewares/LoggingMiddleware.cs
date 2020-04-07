@@ -30,17 +30,18 @@ namespace Cw3.Middlewares
             using (var reader = new StreamReader(httpContext.Request.Body, Encoding.UTF8, true, 1024, true))
             {
                 bodyStream = await reader.ReadToEndAsync();
-
             }
             var dir = @"requestsLog.txt";
             using (StreamWriter strWriter = new StreamWriter(dir, true))
             {
+                strWriter.WriteLine("===================================");
                 strWriter.WriteLine(metoda);
                 strWriter.WriteLine(path);
                 strWriter.WriteLine(bodyStream);
                 strWriter.WriteLine(queryString);
                 strWriter.WriteLine("===================================");
                 
+             
             }
 
             httpContext.Request.Body.Seek(0, SeekOrigin.Begin);

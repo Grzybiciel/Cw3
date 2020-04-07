@@ -159,3 +159,199 @@ GET
 }
 ?index=18445
 ===================================
+GET
+/
+
+
+===================================
+GET
+/favicon.ico
+
+
+===================================
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+?index=18445
+===================================
+GET
+/
+
+
+===================================
+GET
+/favicon.ico
+
+
+===================================
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+?index=18445
+===================================
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+?index=18445
+===================================
+GET
+/
+
+
+===================================
+GET
+/favicon.ico
+
+
+===================================
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+?index=18445
+===================================
+GET
+/api/students
+{
+	"IdStudent": 1
+}
+?index=18445
+===================================
+POST
+/api/enrollments
+{
+	"IdStudent": 1
+}
+
+===================================
+POST
+/api/students/18445
+{
+	"IdStudent": 1
+}
+
+===================================
+POST
+/api/students/2
+{
+	"IdStudent": 1
+}
+
+===================================
+POST
+/api/students/1
+{
+	"IdStudent": 1
+}
+
+===================================
+GET
+/api/students/1
+{
+	"IdStudent": 1
+}
+
+===================================
+GET
+/api/students/18445
+{
+	"IdStudent": 1
+}
+
+===================================
+GET
+/api/students/
+{
+	"IdStudent": 1
+}
+
+===================================
+GET
+/api/students/
+
+
+===================================
+GET
+/api/students/
+
+
+===================================
+GET
+/api/students/
+
+
+===================================
+GET
+/
+
+
+===================================
+GET
+/favicon.ico
+
+
+===================================
+POST
+/api/students/
+{
+"IdStudent": "18446",
+"FirstName": "Andrzej",
+"LastName": "Malewski",
+"BirthDate": "1997-02-12",
+"Studies": "Informatyka"
+}
+
+===================================
+POST
+/api/students/
+{
+"IdStudent": "18446",
+"FirstName": "Andrzej",
+"LastName": "Malewski",
+"BirthDate": "1997-02-12",
+"Studies": "Informatyka"
+}
+
+===================================
+POST
+/api/students/
+{
+"IdStudent": "18446",
+"FirstName": "Andrzej",
+"LastName": "Malewski",
+"BirthDate": "1997-02-12",
+"Studies": "Informatyka"
+}
+
+===================================
+===================================
+GET
+/
+
+
+===================================
+===================================
+GET
+/favicon.ico
+
+
+===================================
+===================================
+POST
+/api/students/
+{
+"IdStudent": "18446",
+"FirstName": "Andrzej",
+"LastName": "Malewski",
+"BirthDate": "1997-02-12",
+"Studies": "Informatyka"
+}
+
+===================================
