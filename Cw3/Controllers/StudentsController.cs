@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Cw3.DAL;
+using Cw3.DTOs.Requests;
 using Cw3.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Cw3.Controllers
 {
@@ -14,13 +21,15 @@ namespace Cw3.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly IDbService _dbService;
-
-        public StudentsController(IDbService dbService)
+        public IConfiguration Configuration { get; set; }
+        public StudentsController(IDbService dbService, IConfiguration configuration)
         {
+            Configuration = configuration;
             _dbService = dbService;
         }
 
         [HttpGet]
+   //     [Authorize(Roles = "Lucas")]
         public IActionResult GetStudents()
         {
             List<Object> listQ = new List<Object>();
@@ -97,8 +106,47 @@ namespace Cw3.Controllers
                 return NotFound("Nie znaleziono studenta");
             }
         }
+        [HttpPost("login")]
+        public IActionResult Login(LoginRequestDTO request)
+        {
+            
+            string login = request.Login;
+            var haslo = request.Haslo;
+            List<Object> listQ = new List<Object>();
+          
+            if (_dbService.GetStudents().ToString().Contains(login))
+            {
+                return Ok();
+            };
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, "1"),
+                new Claim(ClaimTypes.Name, "jan123"),
+                new Claim(ClaimTypes.Role, "admin"),
+                new Claim(ClaimTypes.Role,"student"),
+                new Claim(ClaimTypes.Role,"employee"),
+    //            new Claim(ClaimTypes.Role,login)//można podać jako login Lucas i potem httpGet będzie lub nie będzie działać
+            };
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecretKey"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        [HttpPost]
+            var token = new JwtSecurityToken
+            (
+                issuer: "Gakko",
+                audience: "Students",
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(10),
+                signingCredentials: creds
+            );
+            
+            return Ok(new
+            {
+            token = new JwtSecurityTokenHandler().WriteToken(token),
+            refreshToken = Guid.NewGuid()
+            });
+        }
+
+  /*      [HttpPost]
         public IActionResult CreateStudent(Student student)
         {
             //... add to database
@@ -106,6 +154,7 @@ namespace Cw3.Controllers
             student.IndexNumber = $"s{new Random().Next(1, 20000)}";
             return Ok(student);
         }
+  */
         [HttpPut("{id}")]
         public IActionResult PutStudent(int id)
         {
