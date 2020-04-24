@@ -106,22 +106,43 @@ namespace Cw3.Controllers
                 return NotFound("Nie znaleziono studenta");
             }
         }
-        [HttpPost("login")]
+        [HttpPost]
         public IActionResult Login(LoginRequestDTO request)
         {
-            
-            string login = request.Login;
+            var login = request.Login;
             var haslo = request.Haslo;
-            List<Object> listQ = new List<Object>();
-          
-            if (_dbService.GetStudents().ToString().Contains(login))
+            String FirstName;
+            String LastName;
+            String Id;
+            String Password;
+            using (var client = new SqlConnection("Data Source=db-mssql;Initial Catalog=s18445; Integrated Security=True"))
+            using (var com = new SqlCommand())
             {
-                return Ok();
-            };
+                com.Connection = client;
+                com.CommandText = "SELECT * FROM Student where IndexNumber = @indexNum AND Password = @pass";
+                com.Parameters.AddWithValue("indexNum", login);
+                com.Parameters.AddWithValue("pass", haslo);
+
+                client.Open();
+                var dr = com.ExecuteReader();
+                if (dr.Read())
+                {
+                    FirstName = dr["FirstName"].ToString();
+                    LastName = dr["LastName"].ToString();
+                    Id = request.Login;
+                    Password = request.Haslo;
+                }
+                else
+                { 
+                    return BadRequest("Nie ma takiego loginu lub hasła");
+                }
+
+            }
+            
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, "1"),
-                new Claim(ClaimTypes.Name, "jan123"),
+                new Claim(ClaimTypes.NameIdentifier, Id),
+                new Claim(ClaimTypes.Name, FirstName+" "+LastName),
                 new Claim(ClaimTypes.Role, "admin"),
                 new Claim(ClaimTypes.Role,"student"),
                 new Claim(ClaimTypes.Role,"employee"),
